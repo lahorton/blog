@@ -1,12 +1,27 @@
 {% extends 'base.html' %}
 {% block content %}
 
-{% for post in posts %}
-{{ post.date }}
-{{ post.location }}
-{{ post.text }}
-<p><img src="{{ post.photo }}" alt="No Photo Available" style="width:100px;height:100px;"></p>{% endfor %}
+<style>
 
+body {
+    background-color: #178796;
+}
+</style> 
+
+<ul id="student_info" >
+<!-- <div class="card-deck">
+ -->{% for post in posts %}
+<div class="card text-center bg-light border-#028090 mb-3" style="width:40rem">
+<img class="card-img-top" src="{{ post.photo }}" alt="Card image cap">
+   <div class="card-header"> <p>{{ post.date.strftime('%b %d, %Y') }}</p><p>Post #{{ post.post_id}}</p></div>
+  <div class="card-body">
+    <h5 class="card-title">{{ post.location }}</h5>
+    <p class="card-text">{{ post.text }}</p>
+  </div>
+</div>
+{% endfor %}
+<!-- </div>
+ --></ul>
 
 
 {% endblock %}

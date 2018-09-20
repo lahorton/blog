@@ -45,6 +45,9 @@
         <li class="nav-item active">
           <a class="nav-link" type="btn" data-toggle="modal" href="#addPostModal">Add Post</a>
         </li>
+        <li class="nav-item active">
+          <a class="nav-link" type="btn" data-toggle="modal" href="#editPostModal">Edit Post</a>
+        </li>
       <li class="nav-item active">
         <a class="nav-link" href="/logout">Logout</a>
       </li>
@@ -57,7 +60,7 @@
 </nav>
 </div>
 
-<!-- Modal -->
+<!-- Add Post Modal -->
 <div class="modal fade" id="addPostModal" tabindex="-1" role="dialog" aria-labelledby="addPostModal "aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -84,6 +87,34 @@
     </div>
 </div>
 
+<!-- Edit Post Modal -->
+<div class="modal fade" id="editPostModal" tabindex="-1" role="dialog" aria-labelledby="addPostModal "aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Post</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+                <form action = "/edit_post" method="POST">
+                Post ID:
+                <input type="text" name="post_id"><br>
+                Edit Location:
+                <input type="text" name="location"><br>
+                Edit Blog Post:
+                <input type="text" name="text"><br>
+                Edit Photo (file path):
+                <input type="text" name="photo"><br>
+            </div>
+            <div class="modal-footer">
+                <input type="Submit">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 
     <!-- Controls the background color of flash messages, by categories assigned in Python server.py-->
@@ -137,7 +168,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title text-center" id="exampleModalLabel">Thanks for using Carrot!</h5>
+        <h5 class="modal-title text-center" id="exampleModalLabel">Thanks for using visiting!</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i>
           <span aria-hidden="true"></span>
         </button>

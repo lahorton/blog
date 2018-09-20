@@ -102,7 +102,7 @@ def display_posts():
     # user = User.query.get(session["user_id"])
 
     #do a db query based on get request to display the specified posts (currently = all).
-    posts = db.session.query(Post).all()
+    posts = db.session.query(Post).order_by(Post.date.desc()).all()
 
     #user=user
     print(posts)
@@ -129,6 +129,35 @@ def add_post():
     db.session.commit()
     return redirect('/display_posts')
 
+@app.route('/edit_post', methods=["POST"])
+def edit_post():
+    """allows user to edit a post"""
+
+    post_id = request.form.get("post_id")
+
+    post = Post.query.get(post_id)
+
+    location = request.form.get("location").title()
+    text = request.form.get("text")
+    photo = request.form.get("photo")
+
+    if location:
+        post.location = location
+    else:
+        post.location = post.location
+
+    if text:
+        post.text = text
+    else:
+        post.text = post.text
+
+    if photo:
+        post.photo = photo
+    else:
+        post.photo = post.photo
+
+    db.session.commit()
+    return redirect('/display_posts')
 
 
 if __name__ == "__main__":

@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+  <title>Blog!</title>
+
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  <style>
+  </style>
+
+</head>
+<body>
+
+  <div class="container-fluid">
+  <nav class="navbar navbar-expand-sm navbar-dark" style="background-color: #43494a;">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/display_posts">Posts<span class="sr-only">(current)</span></a>
+      </li>
+      {% if 'user_id' not in session %}
+      <li class="nav-item active">
+        <a class="nav-link" type="btn" data-toggle="modal" href="#Login">Login</a>
+      </li>
+      {% endif %}
+      <!-- Makes sure only logged in users can add new posts -->
+      {% if 'user_id' in session %}
+        <li class="nav-item active">
+          <a class="nav-link" type="btn" data-toggle="modal" href="#addPostModal">Add Post</a>
+        </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/logout">Logout</a>
+      </li>
+      {% endif %}
+      <li class="nav-item active">
+        <a class="nav-link" type="btn" data-toggle="modal" href="#contactInfo">Contact</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addPostModal" tabindex="-1" role="dialog" aria-labelledby="addPostModal "aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h5 class="modal-title" id="exampleModalLabel">Add Post</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+                <form action = "/add_post" method="POST">
+                Location:
+                <input type="text" name="location"><br>
+                Blog Post:
+                <input type="text" name="text"><br>
+                Photo (file path):
+                <input type="text" name="photo"><br>
+            </div>
+            <div class="modal-footer">
+                <input type="Submit">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Controls the background color of flash messages, by categories assigned in Python server.py-->
+<ul>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }} alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+</ul>
+
+
+<!-- Login Form Modal -->
+<div class="modal fade" id="Login" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" background-color: "blue">
+      <div class="modal-header text-center">
+        <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i>
+          <span aria-hidden="true"></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action = "/login" method="POST">
+        Enter your username:
+        <input type="text" name="name"><br>
+        <br>
+        Enter a password:
+        <input type="password" name="password" value ="password" id="passwordInput"><br>
+        <br>
+        <input type="checkbox" onclick="myFunction()">Show Password
+      </div>
+      <div class="modal-footer">
+        <input type="Submit">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!--Contact Modal -->
+<div class="modal fade" id="contactInfo" tabindex="-1" role="dialog" aria-labelledby="contactInfo" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalLabel">Thanks for using Carrot!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i>
+          <span aria-hidden="true"></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="contact">Check out my other work at:<br>
+          <a class="dropdown-item" href="https:www.linkedin.com/in/lauralhorton">linkedin.com/in/lauralhorton</a>
+          <a class="dropdown-item" href="https:www.github.com/lahorton">github.com/lahorton</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  {% block content %} put your content here {% endblock %}
+
+<script>
+function myFunction() {
+    var x = document.getElementById("passwordInput");
+    if (x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+}
+
+ </script >
+
+</body>
+</html>

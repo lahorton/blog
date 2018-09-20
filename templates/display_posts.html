@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% for post in posts %}
+{{ post.date }}
+{{ post.location }}
+{{ post.text }}
+<p><img src="{{ post.photo }}" alt="No Photo Available" style="width:100px;height:100px;"></p>{% endfor %}
+
+
+
+{% endblock %}

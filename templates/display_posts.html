@@ -13,10 +13,9 @@ body {
  -->{% for post in posts %}
 <div class="card text-center bg-light border-#028090 mb-3" style="width:40rem">
 <img class="card-img-top" src="{{ post.photo }}" alt="Card image cap">
-   <div class="card-header"> <p>{{ post.date.strftime('%b %d, %Y') }}</p><p>Post #{{ post.post_id}}</p></div>
+   <div class="card-header"> <p>{{ post.date.strftime('%b %d, %Y') }}</p><p>Post #{{ post.post_id}} | {{ post.location }}</p></div>
   <div class="card-body">
-    <h5 class="card-title">{{ post.location }}</h5>
-    <p class="card-text">{{ post.text }}</p>
+    <h5 class="card-title"><p id="{{ post.title }}"><a href="/display_posts/{{ post.post_id }}"</a>{{ post.title }}<p></h5>
   </div>
 </div>
 {% endfor %}

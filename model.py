@@ -51,6 +51,7 @@ class Post(db.Model):
     post_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     date = db.Column(db.DateTime, nullable=False)
     location = db.Column(db.String(100), nullable=True)
+    title = db.Column(db.String(100), nullable= False)
     text = db.Column(db.String(5000), nullable=True)
     photo = db.Column(db.String(600), nullable=True)
 
@@ -62,4 +63,3 @@ class Post(db.Model):
         """show info about the post"""
 
         return """<post_id = {}, date = {}, location = {}>""".format(self.post_id, self.date, self.location)
-

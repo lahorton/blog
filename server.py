@@ -109,12 +109,23 @@ def display_posts():
     return render_template("display_posts.html", posts=posts)
 
 
+@app.route("/display_posts/<post_id>")
+def display_full_post(post_id):
+    """displays full post"""
+
+    #get full post object
+    post = Post.query.get(post_id)
+
+    return render_template("single_post.html", post=post)
+
+
 @app.route('/add_post', methods=["POST"])
 def add_post():
     """allows user to add a post"""
 
     date = datetime.now()
     location = request.form.get("location").strip().title()
+    title= request.form.get("title")
 
     if 'user_id' in session:
         user_id = session['user_id']
@@ -124,10 +135,11 @@ def add_post():
     text = request.form.get("text")
     photo = request.form.get("photo")
 
-    post = Post(date=date, location=location, user_id=user_id, text=text, photo=photo)
+    post = Post(date=date, location=location, user_id=user_id, title=title, text=text, photo=photo)
     db.session.add(post)
     db.session.commit()
     return redirect('/display_posts')
+
 
 @app.route('/edit_post', methods=["POST"])
 def edit_post():
@@ -138,6 +150,7 @@ def edit_post():
     post = Post.query.get(post_id)
 
     location = request.form.get("location").title()
+    title = request.form.get("title")
     text = request.form.get("text")
     photo = request.form.get("photo")
 
@@ -145,6 +158,11 @@ def edit_post():
         post.location = location
     else:
         post.location = post.location
+
+    if title:
+        post.title = title
+    else:
+        post.title = post.title
 
     if text:
         post.text = text

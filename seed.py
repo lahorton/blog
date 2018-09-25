@@ -9,8 +9,8 @@ import json
 def load_users():
     """loads a test user into the db"""
 
-    user_name = "joe_shmoe"
-    password = "jose_schmose"
+    user_name = "bruiserlovesschatzi"
+    password = "schatzilovesbruiser"
     user = User(user_name=user_name, password=password)
     db.session.add(user)
     db.session.commit()
@@ -23,11 +23,12 @@ def load_posts():
     location = "Oakland, CA"
 
     #consider loading text in as a json file that you're parsing in server.py
+    title = "Test Title"
     text = "test post only"
     photo = "/static/images/cage.jpg"
     user_id = 1
 
-    post=Post(date=date, location=location, text=text, photo=photo, user_id=user_id)
+    post=Post(date=date, location=location, title=title, text=text, photo=photo, user_id=user_id)
     db.session.add(post)
     db.session.commit()
 

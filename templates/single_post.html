@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<ul id="post-display">
+<div class="card text-center" style="width: 40rem;">
+  <img class="card-img-top" src="{{ post.photo }}" alt="No Photo Available">
+  <div class="card-body-center bg-light border-#028090 mb-3">
+    <h5 class="card-title-center">{{ post.title }}</h5>
+    <p class="card-text-center">{{ post.text }}</p>
+    <p class="card-text-center"><small class="text-muted">{{ post.location }} | {{ post.date }} | {{ post.post_id }}</small></p>
+  </div>
+</div>
+</ul>
+
+{% endblock %}

@@ -12,7 +12,7 @@ def connect_to_db(app, database='postgresql:///blog'):
     #Configure to use the PstgreSQL database
     app.config['SQLALCHEMY_DATABASE_URI'] = database
     app.config['SQLALCHEMY_ECHO'] = True
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.app = app
     db.init_app(app)
 
